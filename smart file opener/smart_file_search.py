@@ -11,7 +11,6 @@ import stringfunctions as stringfuncs
 shelfPath = pathlib.PurePath(os.path.abspath(".") + '/ShelfFiles/vars')
 debug(shelfPath)
 
-
 def openShelf():
     global shelfFile
     shelfFile = shelve.open(str(shelfPath))
@@ -40,4 +39,3 @@ if __name__ == "__main__":
     openShelf()
     testsecond()
     close()
-
