@@ -8,8 +8,13 @@ logging.basicConfig(level=logging.DEBUG, format= '%(asctime)s - %(levelname)s - 
 
 import stringfunctions as stringfuncs
 
+from modules import stringparser as str_parser
+
 shelfPath = pathlib.PurePath(os.path.abspath(".") + '/ShelfFiles/vars')
 debug(shelfPath)
+
+def get_command(input_string):
+    commands = str_parser.parse(input_string)
 
 def openShelf():
     global shelfFile
