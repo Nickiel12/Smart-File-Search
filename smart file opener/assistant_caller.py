@@ -7,7 +7,7 @@ from logging import debug
 logging.basicConfig(level=logging.DEBUG, format= '%(asctime)s - %(levelname)s - %(message)s')
 
 cwd = os.path.abspath(".")
-path = pathlib.PurePath(os.path.abspath("." "/personal_assistant.py"))
+path = pathlib.Path(str(os.path.abspath('.'))) / "personal_assistant.py"
 path = str(path)
 debug(path)
 
