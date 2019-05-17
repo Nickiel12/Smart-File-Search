@@ -68,12 +68,3 @@ commands_decoder = ConstantClass(
     S_ALL = S_ALL,
     S_dict = specifier_dict,
     )
-
-def build_shelf():
-    path = pathlib.PurePath(os.path.abspath(".") + "/smart file opener/modules/dict_shelf/dictShelf")
-    print(path)
-    shelf = shelve.open(str(path))
-    shelf["command_consts"] = commands_decoder
-    shelf.close()
-
-build_shelf()
