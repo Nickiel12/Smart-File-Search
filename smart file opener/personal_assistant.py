@@ -7,11 +7,11 @@ import logging
 from logging import debug
 logging.basicConfig(level=logging.DEBUG, format= '%(asctime)s - %(levelname)s - %(message)s')
 
-from modules.assistant_command_functions import AssistantCommands
+from modules import assistant_functions
 import stringfunctions as stringfuncs
 from modules import stringparser as str_parser
 
-shelfPath = pathlib.PurePath(os.path.abspath(".") + '/ShelfFiles/vars')
+shelfPath = pathlib.Path(str(os.path.abspath("."))) / 'ShelfFiles' / 'vars'
 debug(shelfPath)
 
 def read_sys_args():
