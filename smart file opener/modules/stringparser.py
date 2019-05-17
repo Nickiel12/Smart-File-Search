@@ -1,9 +1,17 @@
-from parserregex import parser_regex
-import shelve
+
+import logging
+from logging import debug
+logging.basicConfig(level=logging.DEBUG, format= '%(asctime)s - %(levelname)s - %(message)s')
+
+from dictionaries import commands_decoder
 
 def parse(str_to_parse):
     raw_command_list = str_to_parse.split()
-    command_list = decode(raw_command_list)
+    decoded_command_list = decode(raw_command_list)
+    debug("decoded commands: " + str(decoded_command_list))
+    commands = build_commands(decoded_command_list)
+    debug("built commands: " + str(commands))
+    return commands
 
 def decode(raw_list):
     command_list = []
@@ -21,6 +29,32 @@ def decode(raw_list):
                     specifier_list.append(commands_decoder.S_dict[i])
                 except KeyError:
                     continue
+    return [command_list, subcommand_list, specifier_list]
+
+def build_commands(parsed_command_list):
+    command_list = parsed_command_list[0]
+    subcommand_list = parsed_command_list[1]
+    specifier_list = parsed_command_list[2]
+    built_commands = []
+
+    for i in range(0, len(command_list)):
+        current_list = [
+            command_list[i],
+            subcommand_list[i],
+            specifier_list[i]
+        ]
+
+        current_command = " ".join(current_list)
+        built_commands.append(current_command)
+    return built_commands
 
 if __name__ == "__main__":
-    print(parse("play my favorite song"))
+    print(parse("shuffle all songs"))
+    """
+        list of possible test phrases:
+            make {songName} my favorite song #NIY!!!!!!
+            play my favorite song
+            play all songs
+            shuffle all songs
+            #shuffle all with my favorite song first #not sure if multiple requests are going to be available
+    """
