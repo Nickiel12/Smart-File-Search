@@ -4,19 +4,6 @@ import shelve
 import os
 import pathlib
 
-all_constants = (
-    "C_PLAY"
-    "C_SHUFFLE"
-    "C_dict"
-
-    "SC_SONG"
-    "SC_dict"
-
-    "S_FAVORITESONG"
-    "S_dict"
-
-)
-
 @dataclass
 class ConstantClass():
     C_PLAY: str
