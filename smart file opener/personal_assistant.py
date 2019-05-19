@@ -37,7 +37,8 @@ def close():
 if __name__ == "__main__":
     if openShelf():
         args = read_sys_args()
-        raw_commands = get_command(args)
+        commands = get_command(args)
+        assistant_functions.call_methods(commands)
         close()
     else:
         debug("Open shelf failed :(")
