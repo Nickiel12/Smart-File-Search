@@ -9,9 +9,9 @@ logging.basicConfig(level=logging.DEBUG,
      format= '%(asctime)s - %(levelname)s - %(message)s')
 
 if __name__ == "__main__":
-    from dictionaries import commands_decoder
+    from dictionaries import CommandConstants
 else:
-    from modules.dictionaries import commands_decoder
+    from modules.dictionaries import CommandConstants
 
 local_path = pathlib.Path("modules") / "assistantVariables" / "local"
 
@@ -38,8 +38,12 @@ def call_methods(commands:list):
             # First checks if the first arg is in the dictionary
             # If it is, call the function ascribed in the dictionary,
             # passing the arguments for further excecutions 
-        if command_list[0] == commands_decoder.C_PLAY: 
+        if command_list[0] == CommandConstants.C_PLAY: # Play
             play(command_list)
+        elif command_list[0] == CommandConstants.C_ADD: # Add
+            add(command_list[1], command_list[2])
+        elif command_list[0] == CommandConstants.C_REMOVE:
+            remove(command_list[1])
 
 def play(args:list):
     """
@@ -58,7 +62,7 @@ def play(args:list):
         # First checks if the keyword, args[1],  is in the dictionary
         # If it is, call the function ascribed in the dictionary,
         # passing the arguments for further excecutions 
-    if args[1] == commands_decoder.SC_SONG:
+    if args[1] == CommandConstants.SC_SONG:
         song(args)
 
 def song(args:list):
@@ -77,7 +81,7 @@ def song(args:list):
     # Log the path returned by the dictionary search
     debug(f"song is calling: {path}")
     # Play the path with an audio player
-    process = subprocess.run(path)
+    process = subprocess.run(['itunes', path])
     # If it runs correctly, log the path of the played audio file 
     if process.returncode == 0:
         debug(f"song was run with argument: {path}")
@@ -85,5 +89,10 @@ def song(args:list):
 def add(key:str, value:str):
     global shelf_dict
     shelf_dict[key] = value
+    shelf_dict.sync()
+
+def remove(key:str):
+    global shelf_dict
+    del shelf_dict[key]
     shelf_dict.sync()
 

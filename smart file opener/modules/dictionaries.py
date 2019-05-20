@@ -5,16 +5,19 @@ import os
 import pathlib
 
 @dataclass
-class ConstantClass():
+class CommandConstants():
 
     C_ADD = "add"
     C_PLAY = "play"
+    C_REMOVE = "remove"
     C_SHUFFLE = "shuffle"
+    
 
     C_DICT = {
-        "play": C_PLAY,
-        "shuffle": C_SHUFFLE,
         "add": C_ADD,
+        "play": C_PLAY,
+        "remove": C_REMOVE,
+        "shuffle": C_SHUFFLE,
     }
 
     SC_SONG = "music"
