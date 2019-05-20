@@ -4,9 +4,9 @@ from logging import debug
 logging.basicConfig(level=logging.DEBUG, format= '%(asctime)s - %(levelname)s - %(message)s')
 
 if __name__ == "__main__":
-    from dictionaries import commands_decoder
+    from dictionaries import CommandConstants
 else:
-    from modules.dictionaries import commands_decoder
+    from modules.dictionaries import CommandConstants
 
 def parse(str_to_parse):
     raw_command_list = str_to_parse.split()
@@ -25,13 +25,13 @@ def decode(raw_list):
 
     for i in raw_list:
         try:
-            command_list.append(commands_decoder.C_dict[i])
+            command_list.append(CommandConstants.C_dict[i])
         except KeyError:
             try:
-                subcommand_list.append(commands_decoder.SC_dict[i])
+                subcommand_list.append(CommandConstants.SC_dict[i])
             except KeyError:
                 try:
-                    specifier_list.append(commands_decoder.S_dict[i])
+                    specifier_list.append(CommandConstants.S_dict[i])
                 except KeyError:
                     continue
     return [command_list, subcommand_list, specifier_list]
