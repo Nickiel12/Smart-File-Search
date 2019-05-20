@@ -15,6 +15,7 @@ class CommandConstants():
 
     C_DICT = {
         "add": C_ADD,
+        "set": C_ADD,
         "play": C_PLAY,
         "remove": C_REMOVE,
         "shuffle": C_SHUFFLE,
