@@ -87,11 +87,17 @@ def song(args:list):
         debug(f"song was run with argument: {path}")
 
 def add(key:str, value:str):
+    """
+    Adds 'key' with value 'value' to the dictionary
+    """
     global shelf_dict
     shelf_dict[key] = value
     shelf_dict.sync()
 
 def remove(key:str):
+    """
+    Removes 'key' from the dictionary
+    """
     global shelf_dict
     del shelf_dict[key]
     shelf_dict.sync()
