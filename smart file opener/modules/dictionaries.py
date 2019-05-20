@@ -6,52 +6,30 @@ import pathlib
 
 @dataclass
 class ConstantClass():
-    C_PLAY: str
-    C_SHUFFLE: str
-    C_dict: dict
 
-    SC_SONG: str
-    SC_dict: dict
+    C_ADD = "add"
+    C_PLAY = "play"
+    C_SHUFFLE = "shuffle"
 
-    S_FAVORITESONG: str
-    S_ALL: str
-    S_dict: dict
+    C_DICT = {
+        "play": C_PLAY,
+        "shuffle": C_SHUFFLE,
+        "add": C_ADD,
+    }
 
+    SC_SONG = "music"
 
-C_PLAY = "play"
-C_SHUFFLE = "shuffle"
+    sc_DICT = {
+        "song": SC_SONG,
+        "songs": SC_SONG,
+        "music": SC_SONG,
+        "tune": SC_SONG,
+    }
 
-command_dict = {
-    "play": C_PLAY,
-    "shuffle": C_SHUFFLE
-}
+    S_FAVORITESONG = "fav_song"
+    S_ALL = "all"
 
-SC_SONG = "music"
-
-subcommand_dict = {
-    "song": SC_SONG,
-    "songs": SC_SONG,
-    "music": SC_SONG,
-    "tune": SC_SONG,
-}
-
-S_FAVORITESONG = "fav_song"
-S_ALL = "all"
-
-specifier_dict = {
-    "favorite": S_FAVORITESONG,
-    "all": S_ALL
-}
-
-commands_decoder = ConstantClass(
-    C_PLAY = C_PLAY,
-    C_SHUFFLE = C_SHUFFLE,
-    C_dict = command_dict,
-    
-    SC_SONG = SC_SONG,
-    SC_dict = subcommand_dict,
-
-    S_FAVORITESONG = S_FAVORITESONG,
-    S_ALL = S_ALL,
-    S_dict = specifier_dict,
-    )
+    S_DICT = {
+        "favorite": S_FAVORITESONG,
+        "all": S_ALL,
+    }
