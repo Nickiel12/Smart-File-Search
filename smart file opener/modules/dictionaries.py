@@ -11,6 +11,7 @@ class CommandConstants():
     C_PLAY = "play"
     C_REMOVE = "remove"
     C_SHUFFLE = "shuffle"
+    C_EDIT = "edit"
     
 
     C_DICT = {

@@ -10,8 +10,10 @@ logging.basicConfig(level=logging.DEBUG,
 
 if __name__ == "__main__":
     from dictionaries import CommandConstants
+    from commands_edit_gui import run
 else:
     from modules.dictionaries import CommandConstants
+    from modules.commands_edit_gui import run
 
 local_path = pathlib.Path("modules") / "assistantVariables" / "local"
 
@@ -44,6 +46,11 @@ def call_methods(commands:list):
             add(command_list[1], command_list[2])
         elif command_list[0] == CommandConstants.C_REMOVE:
             remove(command_list[1])
+        elif command_list[0] == CommandConstants.C_EDIT:
+            edit()
+
+def edit():
+    run()
 
 def play(args:list):
     """
