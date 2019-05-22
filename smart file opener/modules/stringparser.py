@@ -8,6 +8,12 @@ if __name__ == "__main__":
 else:
     from modules.dictionaries import CommandConstants
 
+local_path = pathlib.Path("modules") / "assistantVariables" / "local"
+
+shelf_path = pathlib.Path(str(os.path.abspath("."))) / local_path
+
+shelf_dict = shelve.open(str(shelf_path))
+
 def parse(str_to_parse):
     raw_command_list = str_to_parse.split()
 
@@ -26,6 +32,9 @@ def decode(raw_list):
     for i in raw_list:
         try:
             command_list.append(CommandConstants.C_dict[i])
+            if command_list[0] == CommandConstants.C_PLAY:
+                if special_case(command_list[0], raw_list):
+                    break
         except KeyError:
             try:
                 subcommand_list.append(CommandConstants.SC_dict[i])
@@ -50,6 +59,13 @@ def build_commands(parsed_command_list):
         current_command = " ".join(current_list)
         built_commands.append(current_command)
     return built_commands
+
+def special_case(case, commands) -> bool:
+    if case == CommandConstants.C_PLAY:
+        for i in range(len(commands[1:])):
+            try:
+                shelf_dict[str(commands)]
+        return True
 
 if __name__ == "__main__":
     print(parse("shuffle all songs"))
