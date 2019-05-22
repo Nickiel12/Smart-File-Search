@@ -76,12 +76,12 @@ class SongPathPanel(wx.Panel):
     def on_edit(self, event):
         with PopupEdit(self) as dlg:
             if dlg.ShowModal() == wx.ID_OK:
-                new_key = dlg.text_key.GetValue()
-                new_value = dlg.text_value.GetValue()
+                new_key = dlg.key_text_entry.GetValue()
+                new_value = dlg.value_text_entry.GetValue()
                 debug("New Key: " + new_key)
                 debug("New value: "+ new_value)
-                self.new_key = new_key.strip().replace(' ', "_")
-                self.new_value = new_value.strip().replace(" ", "_")
+                self.new_key = new_key.lower().strip().replace(' ', "_")
+                self.new_value = new_value.lower().strip().replace(" ", "_")
                 debug("New Key: " + self.new_key)
                 debug("New value: "+ self.new_value)
 
