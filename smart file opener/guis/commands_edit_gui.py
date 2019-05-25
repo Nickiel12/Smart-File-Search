@@ -8,7 +8,10 @@ from logging import debug
 logging.basicConfig(level=logging.DEBUG,
      format= '%(asctime)s - %(levelname)s - %(message)s')
 
-from gui_dependicies.edit_popup import PopupEdit
+if __name__ != "__main__":
+    from modules.gui_dependicies.edit_popup import PopupEdit
+else:
+    from gui_dependicies.edit_popup import PopupEdit
 
 def run():
     app = wx.App(False)
@@ -24,7 +27,7 @@ class GuiFrame(wx.Frame):
 
 class SongPathPanel(wx.Panel):
 
-    shelf_path = Path(str(abspath(".")))/"modules"/"assistantVariables"/"local"
+    shelf_path = Path(str(abspath("../.")))/"modules"/"assistantVariables"/"local"
     current_item = 0
     new_key, new_value = 0, 0
 

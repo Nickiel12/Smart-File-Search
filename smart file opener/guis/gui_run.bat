@@ -1,0 +1,1 @@
+cmd /k python commands_edit_gui.py
