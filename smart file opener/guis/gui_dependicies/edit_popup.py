@@ -44,6 +44,8 @@ class PopupEdit(wx.Dialog):
         self.SetSizer(self.vbox)
         self.vbox.Fit(self)
 
+        self.Bind(wx.EVT_KEY_DOWN, self.on_key_down)
+
     def file_dialog(self, event):
         title = "Choose a song file"
         dirDialog = wx.FileDialog(self, title,
@@ -52,5 +54,13 @@ class PopupEdit(wx.Dialog):
             self.value_text_entry.SetValue(dirDialog.GetPath())
         dirDialog.Destroy()
 
+    def on_key_down(self, event):
+        keycode = event.GetKeyCode()
+        if keycode == wx.WXK_NUMPAD_ENTER:
+            self.on_save_button_press(None)
+        else:
+            event.Skip()
+
     def on_save_button_press(self, event):
+        event.Skip()
         self.EndModal(wx.ID_OK)
