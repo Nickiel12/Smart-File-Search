@@ -6,8 +6,6 @@ import logging
 from logging import debug
 logging.basicConfig(level=logging.DEBUG, format= '%(asctime)s - %(levelname)s - %(message)s')
 
-from modules.commands_edit_gui import run
-
 cwd = os.path.abspath(".")
 path = pathlib.Path(str(cwd)) / "personal_assistant.py"
 path = str(path)
@@ -18,10 +16,10 @@ def call_assistant():
     user_command = input(">>>")
 
     if user_command == "gui":
-        cwd = os.path.abspath(".")
-        path = pathlib.Path(str(cwd)) / "guis" / "gui_run.bat"
-        path = str(path)
-        assistant_cmd = subprocess.run([path], shell=True, cwd = cwd)
+        gui_cwd = pathlib.Path(cwd) / 'guis'
+        gui_path = pathlib.Path(str(cwd)) / "guis" / "gui_run.bat"
+        gui_path = str(gui_path)
+        assistant_cmd = subprocess.run([gui_path], shell=True, cwd = gui_cwd)
     else:
         assistant_cmd = subprocess.run([path, user_command], shell=True, cwd=cwd)
     debug(assistant_cmd)
