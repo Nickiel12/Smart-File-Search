@@ -104,17 +104,34 @@ class SongPathPanel(wx.Panel):
                 self.add_key(new_key, new_value)
 
     def add_key(self, key, value):
+        if self.key_exist(key):
+            popup = wx.MessageDialog(self, "This key already exists."
+            "\n Would you like to override it?", "Warning", wx.YES | wx.NO)
+            popup.ShowModal()
+            if popup == wx.ID_NO:
+                return False
+            else:
+                for i in range(self.list_cntrl.GetItemCount()):
+                    if self.list_cntrl.GetItemText(i, 0) == key:
+                        item = self.list_cntrl.GetItem(i)
+                        item.SetTextColour(wx.RED)
+                        self.list_cntrl.SetItem(item)
+                        break
         index = self.list_cntrl.InsertItem(self.list_cntrl.GetItemCount(), key)
         debug(index)
         item = self.list_cntrl.GetItem(index)
-        item.SetTextColour(wx.RED)
+        item.SetTextColour(wx.BLUE)
         self.list_cntrl.SetItem(item)
 
         self.list_cntrl.SetItem(index, 1, value)
-        item = self.list_cntrl.GetItem(index)
-        item.SetTextColour(wx.RED)
-        self.list_cntrl.SetItem(item)
         self.temp_dict[key] = value
+    
+    def key_exist(self, key):
+        try:
+            self.temp_dict[key]
+            return True
+        except KeyError:
+            return False
 
     def on_double_click(self, event):
         print("OnDoubleClick item %s\n" % self.list_cntrl.GetItemText(self.current_item))
