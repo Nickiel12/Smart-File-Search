@@ -36,24 +36,28 @@ class SongPathPanel(wx.Panel):
     def __init__(self, parent):
         super().__init__(parent)
         self.main_sizer = wx.BoxSizer(wx.VERTICAL)
+        self.button_h_1 = wx.BoxSizer(wx.HORIZONTAL)
 
         self.list_cntrl = wx.ListCtrl(
-            self, size=(-1, 100),
+            self,
             style=wx.LC_REPORT | wx.BORDER_SUNKEN
             )
         self.list_cntrl.InsertColumn(0, "Song Keyword", width=150)
         self.list_cntrl.InsertColumn(1, "Path to Song", width=500)
 
+        self.main_sizer.Add(self.list_cntrl, 0, wx.ALL | wx.EXPAND, 5)
+
+        self.new_button = wx.Button(self, label='New')
+        self.new_button.Bind(wx.EVT_BUTTON, self.on_new)
+        self.button_h_1.Add(self.new_button, 0, wx.ALL | wx.CENTER, 5)
+        
         self.delete_button = wx.Button(self, label="Delete") 
         self.delete_button.Bind(wx.EVT_BUTTON, self.on_delete)
-        self.main_sizer.Add(self.delete_button, 4, wx.ALL | wx.CENTER, 4)     
+        self.button_h_1.Add(self.delete_button, 4, wx.ALL | wx.CENTER, 4)
+
+        self.main_sizer.Add(self.button_h_1, 0, wx.ALL | wx.CENTER, 5)
+
         self.SetSizer(self.main_sizer)
-
-        self.main_sizer.Add(self.list_cntrl, 0, wx.ALL | wx.EXPAND, 5)
-        self.edit_button = wx.Button(self, label='Edit')
-        self.edit_button.Bind(wx.EVT_BUTTON, self.on_edit)
-        self.main_sizer.Add(self.edit_button, 0, wx.ALL | wx.CENTER, 5)
-
         
         self.list_cntrl.Bind(wx.EVT_LEFT_DCLICK, self.on_double_click)
         self.Bind(wx.EVT_LIST_ITEM_SELECTED, self.on_item_selected, self.list_cntrl)
@@ -63,11 +67,20 @@ class SongPathPanel(wx.Panel):
         self.current_item = event.Index
 
     def on_delete(self, event):
-        index = self.current_item
-        key = self.list_cntrl.GetItemText(index, 0)
-        del self.temp_dict[key]
-        self.list_cntrl.DeleteItem(self.list_cntrl.GetFocusedItem())
-        self.sync_shelf()
+        dlg = wx.MessageDialog(self, f"The key \""
+        f"{self.list_cntrl.GetItemText(self.list_cntrl.GetFocusedItem())}\" \n"
+            "is going to be deleted.", "Are you sure?",
+            wx.OK | wx.CANCEL |
+            wx.CANCEL_DEFAULT | wx.ICON_EXCLAMATION)
+        dlg.ShowModal()
+        if dlg == wx.OK:
+            index = self.current_item
+            key = self.list_cntrl.GetItemText(index, 0)
+            del self.temp_dict[key]
+            self.list_cntrl.DeleteItem(self.list_cntrl.GetFocusedItem())
+            self.sync_shelf()
+        else:
+            return
 
     def populate_list(self):
         if self.open_shelf():
@@ -90,7 +103,7 @@ class SongPathPanel(wx.Panel):
         self.shelf.close()
         return True
     
-    def on_edit(self, event):
+    def on_new(self, event):
         with PopupEdit(self) as dlg:
             if dlg.ShowModal() == wx.ID_OK:
                 new_key = dlg.key_text_entry.GetValue()
