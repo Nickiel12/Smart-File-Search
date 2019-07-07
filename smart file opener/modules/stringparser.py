@@ -65,6 +65,8 @@ def special_case(case, commands) -> bool:
         for i in range(len(commands[1:])):
             try:
                 shelf_dict[str(commands)]
+            except KeyError:
+                pass #put here
         return True
 
 if __name__ == "__main__":
