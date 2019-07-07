@@ -28,7 +28,7 @@ class GuiFrame(wx.Frame):
 
 class SongPathPanel(wx.Panel):
 
-    shelf_path = Path(str(abspath("../.")))/"modules"/"assistantVariables"/"local"
+    shelf_path = Path(str(abspath(".")))/"smart file opener"/"modules"/"assistantVariables"/"local"
     current_item = 0
     new_key, new_value = 0, 0
     temp_dict = {}
